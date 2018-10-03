@@ -1,4 +1,4 @@
-package com.mycompany.CameronEvansApp.adapter;
+package com.mycompany.CameronEvansApp.Adapter;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.mycompany.CameronEvansApp.R;
 
 import com.mycompany.CameronEvansApp.CurrencyModel.CurrencyModel;
-
+import com.mycompany.CameronEvansApp.View.CurrencyView;
 
 
 import java.sql.Timestamp;

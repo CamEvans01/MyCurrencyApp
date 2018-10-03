@@ -1,4 +1,4 @@
-package com.mycompany.CameronEvansApp.adapter;
+package com.mycompany.CameronEvansApp.View;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

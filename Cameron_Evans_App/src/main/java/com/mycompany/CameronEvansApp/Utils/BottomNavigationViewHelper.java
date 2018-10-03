@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.mycompany.CameronEvansApp.R;
 
-import com.mycompany.CameronEvansApp.ConverterActivity;
-import com.mycompany.CameronEvansApp.CurrencyRateActivity;
+import com.mycompany.CameronEvansApp.JavaActivities.ConverterActivity;
+import com.mycompany.CameronEvansApp.JavaActivities.CurrencyRateActivity;
 
 
 public class BottomNavigationViewHelper {

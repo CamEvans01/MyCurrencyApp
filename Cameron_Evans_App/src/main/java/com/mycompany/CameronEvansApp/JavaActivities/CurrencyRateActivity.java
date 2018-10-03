@@ -1,4 +1,4 @@
-package com.mycompany.CameronEvansApp;
+package com.mycompany.CameronEvansApp.JavaActivities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,10 +17,10 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.mycompany.CameronEvansApp.CurrencyModel.CurrencyModel;
 
 
-
+import com.mycompany.CameronEvansApp.R;
 import com.mycompany.CameronEvansApp.Utils.BottomNavigationViewHelper;
 
-import com.mycompany.CameronEvansApp.adapter.CurrencyAdapter;
+import com.mycompany.CameronEvansApp.Adapter.CurrencyAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
