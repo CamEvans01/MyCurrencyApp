@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">CurrencyApp</string>
+    <string name="title_fiat">FX Rates</string>
+    <string name="title_converter">Converter</string>
+
+    <string-array name="currencyArray">
+        <item>ADA (Cardano)</item>
+        <item>AUD (Australian Dollar)</item>
+        <item>BTC (Bitcoin)</item>
+        <item>BNB (Binance Coin)</item>
+        <item>BRL (Brazilian Real)</item>
+        <item>CAD (Canadian Dollar)</item>
+        <item>CNY (Chinese Yuan)</item>
+        <item>CHF (Swiss Franc)</item>
+        <item>INR (Indian Rupee)</item>
+        <item>JPY (Japanese Yen)</item>
+        <item>EOS</item>
+        <item>EUR (European Euro)</item>
+        <item>ETC (Ethereum Classic)</item>
+        <item>ETH (Ethereum)</item>
+        <item>GBP (Great British Pound) </item>
+        <item>KRW (South Korean Won)</item>
+        <item>LTC (Litecoin)</item>
+        <item>NZD (New Zealand Dollar)</item>
+        <item>NEO </item>
+        <item>RUB (Russian Ruble)</item>
+        <item>USD (United States Dollar)</item>
+        <item>SAR (Saudi Riyal)</item>
+        <item>SGD (Singaporean Dollar)</item>
+        <item>TRX (TRON) </item>
+        <item>TRY (Turkish Lira)</item>
+        <item>VET (VeChain)</item>
+        <item>XEM (NEM)</item>
+        <item>XLM (Stellar</item>
+        <item>XTZ (Tezos)</item>
+        <item>XMR (Monero)</item>
+        <item>ZAR (South African Rand)</item>
+        <item>ZEC (Zcash</item>
+
+    </string-array>
+</resources>

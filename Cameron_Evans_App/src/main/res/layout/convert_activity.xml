@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootConvertLayout"
+    tools:context="com.mycompany.CameronEvansApp.ConverterActivity">
+
+    <Spinner
+        android:id="@+id/fromCurrency"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="111dp" />
+
+    <Spinner
+        android:id="@+id/toCurrency"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="205dp" />
+
+    <TextView
+        android:id="@+id/from"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:text="From" />
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:text="To" />
+
+    <Button
+        android:id="@+id/convertButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignEnd="@+id/fromCurrency"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="201dp"
+        android:text="convert"
+        android:onClick="convertCurrency"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="300dp"
+        android:layout_height="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="114dp"
+        android:hint="Result"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/numberToConvert"
+        style="@android:style/Widget.Material.Light.EditText"
+        android:layout_width="149dp"
+        android:layout_height="47dp"
+        android:layout_alignStart="@+id/fromCurrency"
+        android:layout_alignTop="@+id/convertButton"
+        android:inputType="numberDecimal"
+        android:hint="Enter Amount"
+        android:textSize="20dp" />
+
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:id="@+id/BottomNavViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation">
+
+    </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
+</RelativeLayout>
