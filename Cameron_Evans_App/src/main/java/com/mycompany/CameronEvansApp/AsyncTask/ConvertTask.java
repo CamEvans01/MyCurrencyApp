@@ -38,6 +38,7 @@ String toCurrency;
             conversionRate = currencyExchangeData.getExchangeRate();
 
         } catch (AlphaVantageException e) {
+            System.out.println(e);
             System.out.println("something went wrong");
         }
 
@@ -53,11 +54,10 @@ String toCurrency;
             double number = Double.parseDouble(editTxt.getText().toString());
             double convertedNumber = number * result;
             String convertedNumberFinal = String.valueOf(convertedNumber);
-            System.out.println(String.format("%,.2f",convertedNumber));
-            convertedNumberFinal = String.format("%,.2f",convertedNumber);
             displayTxt.setText(convertedNumberFinal);
         }
         catch (Exception e){
+            System.out.println(e);
             double convertedNumber = 0;
             displayTxt.setText(String.valueOf(convertedNumber));
         }

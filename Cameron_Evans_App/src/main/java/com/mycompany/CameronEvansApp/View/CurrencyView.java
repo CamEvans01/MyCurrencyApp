@@ -17,7 +17,7 @@ public CurrencyView(@NonNull View itemView) {
         super(itemView);
 
 
-        //assigning widget items to their UI id
+        //assigning widget items to their UI id. Textboxes
         symbol = (TextView) (itemView).findViewById(R.id.fxSymbol);
         price = (TextView) (itemView).findViewById(R.id.fx_rate);
         timestamp = (TextView) (itemView).findViewById(R.id.fx_timestamp);

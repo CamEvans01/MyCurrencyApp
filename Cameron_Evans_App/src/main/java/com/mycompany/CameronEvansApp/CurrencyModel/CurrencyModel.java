@@ -6,7 +6,7 @@ public class CurrencyModel {
     public String timestamp;
 
 
-    //Model of the currencyModel cards
+    //Model of the currencyModel cards retrieves from url.
     public CurrencyModel(String symbol) {
 
     }
