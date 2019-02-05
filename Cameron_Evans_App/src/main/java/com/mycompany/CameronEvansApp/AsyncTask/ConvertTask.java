@@ -1,67 +1,85 @@
 package com.mycompany.CameronEvansApp.AsyncTask;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.EditText;
 import android.widget.TextView;
-import org.patriques.AlphaVantageConnector;
-import org.patriques.ForeignExchange;
-import org.patriques.output.AlphaVantageException;
-import org.patriques.output.exchange.CurrencyExchange;
-import org.patriques.output.exchange.data.CurrencyExchangeData;
+
+import com.google.gson.Gson;
+import com.mycompany.CameronEvansApp.POJOs.ConvertPojo;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ConvertTask extends AsyncTask<String,String,String> {
+    OkHttpClient client;
+    Request request;
+    EditText editTxt;
+    TextView displayTxt;
+    String fromCurrency;
+    String toCurrency;
+    Context context;
+    String number;
 
-EditText editTxt;
-TextView displayTxt;
-String fromCurrency;
-String toCurrency;
-
-    public ConvertTask(EditText editTxt, String fromCurrency, String toCurrency,TextView displayTxt) {
+    public ConvertTask(EditText editTxt, String fromCurrency, String toCurrency, TextView displayTxt, Context context,String number) {
         this.displayTxt = displayTxt;
         this.fromCurrency = fromCurrency;
         this.toCurrency = toCurrency;
         this.editTxt = editTxt;
+        this.context = context;
+        this.number = number;
     }
 
 
+    //putting string values into url, getting json result and creating ConvertPOJO to get values
     protected String doInBackground(String... strings) {
-        String apiKey = "DIMTJEJLW41A1SW4";
-        int timeout = 3000;
-        double conversionRate = 0;
-        AlphaVantageConnector apiConnector = new AlphaVantageConnector(apiKey, timeout);
-        ForeignExchange foreignExchange = new ForeignExchange(apiConnector);
 
-        try {
-            CurrencyExchange currencyExchange = foreignExchange.currencyExchangeRate(fromCurrency, toCurrency);
-            CurrencyExchangeData currencyExchangeData = currencyExchange.getData();
+        client = new OkHttpClient();
+        request = new Request.Builder().url(String.format(
+                "https://forex.1forge.com/1.0.3/convert?from="+fromCurrency+"&to="+toCurrency+"&quantity="+number+"&api_key=61IESGm7bFWcBi4koragWqKBeC9NJ9P6"))
+                .build();
 
-            conversionRate = currencyExchangeData.getExchangeRate();
+        client.newCall(request)
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-        } catch (AlphaVantageException e) {
-            System.out.println(e);
-            System.out.println("something went wrong");
-        }
+                    }
 
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
 
-        onPostExecute(conversionRate);
+                        String body = response.body().string();
+
+                        ConvertPojo cp = new Gson().fromJson(body,ConvertPojo.class);
+
+                        onPostExecute(cp);
+                    }
+
+                });
 
         return null;
+
     }
 
-    protected  void onPostExecute(double result){
-
+    protected void onPostExecute(ConvertPojo cp) {
         try {
-            double number = Double.parseDouble(editTxt.getText().toString());
-            double convertedNumber = number * result;
-            String convertedNumberFinal = String.valueOf(convertedNumber);
-            displayTxt.setText(convertedNumberFinal);
+
+                String convertedNumberFinal = String.format("%.2f", cp.getValue())+" "+toCurrency;
+                displayTxt.setText(convertedNumberFinal);
+
+            } catch (Exception e) {
+                System.out.println(e);
+
+            }
         }
-        catch (Exception e){
-            System.out.println(e);
-            double convertedNumber = 0;
-            displayTxt.setText(String.valueOf(convertedNumber));
-        }
+
+
     }
 
 
-}

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/ic_fiat"
+        android:id="@+id/fiat"
         android:icon="@drawable/ic_fiat"
         android:title="@string/title_fiat"
         />
 
     <item
-        android:id="@+id/ic_convert"
+        android:id="@+id/convert"
         android:icon="@drawable/ic_convert"
         android:title="@string/title_converter" />
 

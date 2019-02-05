@@ -6,12 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.mycompany.CameronEvansApp.Model.CurrencyModel;
 import com.mycompany.CameronEvansApp.R;
-
-import com.mycompany.CameronEvansApp.CurrencyModel.CurrencyModel;
 import com.mycompany.CameronEvansApp.View.CurrencyView;
-
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -44,15 +41,15 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
     }
 
-    //abstract method
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.rate_card_layout,parent,false);
         return new CurrencyView(view);
 
     }
-    //abstract method
-    //when Binding the content to the cards, format the text this way
+
+    //Binding the content to the cards
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CurrencyModel item = items.get(position);
@@ -64,7 +61,10 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String timestampDateString = df.format(date);
 
-        double currencyNumber = Double.parseDouble(item.getPrice());
+        //double currencyNumber = Double.parseDouble(item.getPrice());
+        //String currencyRate = String.format("%,.3f",currencyNumber);
+
+        float currencyNumber = item.getRate();
         String currencyRate = String.format("%,.3f",currencyNumber);
 
         holderItem.symbol.setText(item.getSymbol());
@@ -73,7 +73,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
-    //abstract method
+
     //returns the number of currencyModels in the list
     @Override
     public int getItemCount() {

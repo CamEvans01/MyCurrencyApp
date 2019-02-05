@@ -21,7 +21,6 @@
         android:layout_width="262dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="205dp" />
 
@@ -50,19 +49,20 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_below="@id/toCurrency"
+        android:layout_marginTop="100dp"
         android:layout_alignEnd="@+id/fromCurrency"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="201dp"
         android:text="convert"
         android:onClick="convertCurrency"/>
 
     <TextView
         android:id="@+id/result"
+        android:layout_below="@+id/numberToConvert"
         android:layout_width="300dp"
         android:layout_height="43dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="114dp"
+        android:layout_marginTop="30dp"
         android:hint="Result"
         android:textAlignment="center"
         android:textSize="20dp" />

@@ -20,11 +20,11 @@ public class BottomNavigationViewHelper {
 
     //method to setup the bottom navigation bar
     public static void setupBottomNavigationView(BottomNavigationViewEx bottomNavigationViewEx){
-        Log.e(TAG, "setupBottomNavigationView: set up NavigationView");
         bottomNavigationViewEx.enableAnimation(false);
         bottomNavigationViewEx.enableShiftingMode(false);
         bottomNavigationViewEx.enableItemShiftingMode(false);
         bottomNavigationViewEx.setTextVisibility(true);
+
 
 
     }
@@ -35,14 +35,14 @@ public class BottomNavigationViewHelper {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.ic_fiat:
+                    case R.id.fiat:
                         Intent intent1 = new Intent(context, CurrencyRateActivity.class);
                         context.startActivity(intent1);
                         callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out); //ACTIVITY_NUM = 0
                         break;
-                    case R.id.ic_convert:
-                        Intent intent3 = new Intent(context, ConverterActivity.class);
-                        context.startActivity(intent3);
+                    case R.id.convert:
+                        Intent intent2 = new Intent(context, ConverterActivity.class);
+                        context.startActivity(intent2);
                         callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out); //ACTIVITY_NUM = 2
                         break;
                 }

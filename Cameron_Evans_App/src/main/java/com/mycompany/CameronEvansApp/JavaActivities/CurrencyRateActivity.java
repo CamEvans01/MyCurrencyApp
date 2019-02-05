@@ -8,24 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import com.mycompany.CameronEvansApp.CurrencyModel.CurrencyModel;
-
-
+import com.mycompany.CameronEvansApp.Adapter.CurrencyAdapter;
+import com.mycompany.CameronEvansApp.Model.CurrencyModel;
+import com.mycompany.CameronEvansApp.POJOs.PricePojo;
 import com.mycompany.CameronEvansApp.R;
 import com.mycompany.CameronEvansApp.Utils.BottomNavigationViewHelper;
-
-import com.mycompany.CameronEvansApp.Adapter.CurrencyAdapter;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UnknownFormatConversionException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -44,10 +37,8 @@ public class CurrencyRateActivity extends AppCompatActivity {
     List<CurrencyModel> items = new ArrayList<>();
     CurrencyAdapter adapter;
     RecyclerView recyclerView;
-
     OkHttpClient client;
     Request request;
-
     SwipeRefreshLayout swipeRefreshLayout;
 
 
@@ -57,20 +48,21 @@ public class CurrencyRateActivity extends AppCompatActivity {
         setContentView(R.layout.currency_activity);
         Log.d(TAG, "onCreate: Starting");
         setupBottomNavigationView();
-
         swipeRefreshLayout = findViewById(R.id.rootLayout);
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                loadFirst10Rates(0);
+                loadRates(0);
             }
+
         });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
             @Override
             public void onRefresh() {
                 items.clear();
-                loadFirst10Rates(0);
+                loadRates(0);
                 setupAdapter();
             }
         });
@@ -80,8 +72,6 @@ public class CurrencyRateActivity extends AppCompatActivity {
         setupAdapter();
 
         setupBottomNavigationView();
-
-
         }
 
     private void setupAdapter() {
@@ -90,41 +80,61 @@ public class CurrencyRateActivity extends AppCompatActivity {
     }
 
 
-    private void loadFirst10Rates(int i) {
-        client = new OkHttpClient();
-        request = new Request.Builder().url(String.format(
-                "https://forex.1forge.com/1.0.3/quotes?pairs=EURUSD,USDJPY,GBPUSD,USDCHF,AUDUSD,USDCAD,NZDUSD,USDMXN&api_key=61IESGm7bFWcBi4koragWqKBeC9NJ9P6"))
-                .build();
-        swipeRefreshLayout.setRefreshing(true);
-        client.newCall(request)
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Toast.makeText(mContext,e.getMessage(),Toast.LENGTH_SHORT).show();
+    //method to retrieve rates from url
+    private void loadRates(int i) throws UnknownFormatConversionException {
+        try {
+            client = new OkHttpClient();
+            request = new Request.Builder().url(String.format(
+                    "https://fxmarketapi.com/apilive?api_key=a2GKHmHO-kPcYrhdSHw-&currency=EURUSD,USDJPY,GBPUSD,USDCHF,AUDUSD,USDCAD,NZDUSD,USDMXN"))
+                    .build();
+            swipeRefreshLayout.setRefreshing(true);
+            client.newCall(request)
+                    .enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
 
-                    }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                        }
 
-                        String body = response.body().string();
-                        Gson gson = new Gson();
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
 
-                        final List<CurrencyModel> newItems = gson.fromJson(body,new TypeToken<List<CurrencyModel>>(){}.getType());
+                            String body = response.body().string();
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+                            //ArrayList to hold CurrencyModel objects
+                            ArrayList<CurrencyModel> c1 = new ArrayList<>(8);
 
-                                adapter.updateData(newItems);
-                            }
-                        });
 
-                    }
+                            PricePojo p1 = new Gson().fromJson(body, PricePojo.class);
 
-                });
-        if(swipeRefreshLayout.isRefreshing()){
-            swipeRefreshLayout.setRefreshing((false));
+                            //Adding content to the models with PricePojo value as price
+                            c1.add(0,new CurrencyModel("EURUSD",p1.getPrice().getEURUSD()));
+                            c1.add(1,new CurrencyModel("USDJPY",p1.getPrice().getUSDJPY()));
+                            c1.add(2,new CurrencyModel("GBPUSD",p1.getPrice().getGBPUSD()));
+                            c1.add(3,new CurrencyModel("USDJPY",p1.getPrice().getUSDJPY()));
+                            c1.add(4,new CurrencyModel("USDCHF",p1.getPrice().getUSDCHF()));
+                            c1.add(5,new CurrencyModel("AUDUSD",p1.getPrice().getAUDUSD()));
+                            c1.add(6,new CurrencyModel("NZDUSD",p1.getPrice().getNZDUSD()));
+                            c1.add(7,new CurrencyModel("USDMXN",p1.getPrice().getUSDMXN()));
+
+
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                adapter.updateData(c1);
+                                }
+                            });
+
+                        }
+
+                    });
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing((false));
+            }
+        } catch (UnknownFormatConversionException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -132,7 +142,7 @@ public class CurrencyRateActivity extends AppCompatActivity {
     // BottomNavigationViewEX Setup
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up");
+
         //getting BottomNavViewBar from currency_activity
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.BottomNavViewBar);
 

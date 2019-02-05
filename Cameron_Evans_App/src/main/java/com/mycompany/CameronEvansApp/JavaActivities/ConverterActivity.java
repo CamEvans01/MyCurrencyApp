@@ -13,27 +13,26 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
 import com.mycompany.CameronEvansApp.AsyncTask.ConvertTask;
-
-
 import com.mycompany.CameronEvansApp.R;
 import com.mycompany.CameronEvansApp.Utils.BottomNavigationViewHelper;
-
 import org.apache.commons.lang3.StringUtils;
+
+
 
 
 public class ConverterActivity extends AppCompatActivity {
     private static final String TAG = "ConverterActivity";
 
-    private Context mContext = ConverterActivity.this;
+    public Context mContext = ConverterActivity.this;
 
     private static final int ACTIVITY_NUM = 1;
 
     String fromCurrency;
     String toCurrency;
+
+
 
 
 
@@ -49,6 +48,8 @@ public class ConverterActivity extends AppCompatActivity {
 
 
     }
+
+    //getting content from layout, sending to AsyncTask for conversion
     public void convertCurrency(View view){
 
         EditText numberToConvert = findViewById(R.id.numberToConvert);
@@ -57,10 +58,14 @@ public class ConverterActivity extends AppCompatActivity {
         fromCurrency = StringUtils.substring(fromCurrency,0,3);
 
         toCurrency = StringUtils.substring(toCurrency,0,3);
+        String number = numberToConvert.getText().toString();
 
-        new ConvertTask(numberToConvert, fromCurrency, toCurrency, resultText).execute();
+        fromCurrency = StringUtils.substring(fromCurrency,0,3);
 
-        Log.d(TAG, getFromCurrency() + getToCurrency());
+        toCurrency = StringUtils.substring(toCurrency,0,3);
+
+         new ConvertTask(numberToConvert, fromCurrency, toCurrency, resultText, mContext,number).execute();
+
 
         }
 
@@ -80,14 +85,15 @@ public class ConverterActivity extends AppCompatActivity {
         spinner1.setAdapter(adapter1);
         spinner2.setAdapter(adapter2);
 
-        spinner1.setSelection(11);
-        spinner2.setSelection(20);
+        spinner1.setSelection(5);
+        spinner2.setSelection(10);
 
         spinner1.setOnItemSelectedListener(new fromCurrencySpinnerClass());
         spinner2.setOnItemSelectedListener(new toCurrencySpinnerClass());
 
     }
 
+    //from currency dropdown
     class fromCurrencySpinnerClass implements AdapterView.OnItemSelectedListener
     {
         @Override
@@ -102,6 +108,7 @@ public class ConverterActivity extends AppCompatActivity {
         }
     }
 
+    //to currency dropdown
     class toCurrencySpinnerClass implements AdapterView.OnItemSelectedListener
     {
         @Override
@@ -118,7 +125,6 @@ public class ConverterActivity extends AppCompatActivity {
 
 
     private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up");
         //getting BottomNavViewBar from currency_activity
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.BottomNavViewBar);
 
